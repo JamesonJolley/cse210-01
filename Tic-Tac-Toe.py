@@ -3,13 +3,17 @@ def main():
     o=[]
 
     Win_condition = win(x,o)
-
+    Current_turn = False
+    
     while Win_condition == False:
         ##Print the board 
         print_bord(x,o)
 
         ##Determine whose turn it is 
+        
+        Current_turn = turn(Current_turn)
         ##Ask if that player for an input 
+        input(f'{Current_turn}\'s turn to choose a square (1-9):')
         ##Calculate the wind condition
         Win_condition = win(x,o)
         ##print_bord(x,o)
@@ -18,9 +22,14 @@ def main():
         ##Victory message
         pass
 
-def turn(player):
+def turn(Current_turn):
+    if Current_turn == 'x':
+        turn = 'o'
+    else:
+        turn = 'x'
+    return turn
+    
 
-    pass
 
 def print_bord(x,o):
     tiles ={
