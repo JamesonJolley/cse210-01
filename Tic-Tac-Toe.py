@@ -12,18 +12,16 @@ def main():
         ##Determine whose turn it is 
         
         Current_turn = turn(Current_turn)
-        Current_array = Determine_array(x,o,Current_turn)
-
         ##Ask if that player for an input 
-        Choose_tile(Current_turn,Current_array)
+        Choose_tile(Current_turn,x,o)
         
         ##Calculate the wind condition
-        Win_condition =win(Current_array)
+        Win_condition =win(x,o,Current_turn)
         
 
     else:
         ##Victory message
-        print(f'{Current_turn} has wone the game!!!')
+        print(f'{Current_turn} is the winner!!!')
         pass
 
 def turn(Current_turn):
@@ -32,22 +30,18 @@ def turn(Current_turn):
     else:
         turn = 'x'
     return turn
-
-def Determine_array(x,o,Current_turn):
-    if Current_turn == 'x':
-        Current_array = x
-    else:
-        Current_array = o
-    return Current_array
-
     
-def Choose_tile(Current_turn,Current_array):
+def Choose_tile(Current_turn,x,o):
     tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
     while tile.isnumeric() == False:
         print(f'{tile} is not a valid answer try again')
         tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
 
-        Current_array.append(int(tile))
+    if Current_turn == 'x':
+        x.append(int(tile))
+    else:
+        o.append(int(tile))
+
 
 
 def print_bord(x,o):
@@ -77,9 +71,9 @@ def print_bord(x,o):
     {tiles[7]}|{tiles[8]}|{tiles[9]}
     
     ''')
+    pass 
 
-
-def win(Current_array):
+def win(x,o,Current_turn):
     Win_condition = False
     wins={
         'r1':[1,2,3],
@@ -93,6 +87,9 @@ def win(Current_array):
         'x1':[1,5,9],
         'x2':[3,5,7]
     }
+
+   
+    Current_array = Determine_array(x,o,Current_turn)
 
     def test(Current_array,val):
         if val in Current_array:
@@ -112,6 +109,12 @@ def win(Current_array):
     return Win_condition
 
 
+def Determine_array(x,o,Current_turn):
+    if Current_turn == 'x':
+        Current_array = x
+    else:
+        Current_array = o
+    return Current_array
 
 
 if __name__ =='__main__':
