@@ -16,11 +16,12 @@ def main():
         Choose_tile(Current_turn,x,o)
         
         ##Calculate the wind condition
-        Win_condition = win(x,o)
+        Win_condition =win(x,o,Current_turn)
         
 
     else:
         ##Victory message
+        print(f'{Current_turn} has wone the game!!!')
         pass
 
 def turn(Current_turn):
@@ -72,10 +73,33 @@ def print_bord(x,o):
     ''')
     pass 
 
-def win(x,o):
+def win(x,o,Current_turn):
     Win_condition = False
+    wins={
+        'r1':[1,2,3],
+        'r2':[4,5,6],
+        'r3':[7,8,9],
 
-    
+        'c1':[1,4,7],
+        'c2':[2,5,8],
+        'c3':[3,6,9],
+
+        'x1':[1,5,9],
+        'x2':[3,5,7]
+    }
+
+    if Current_turn == 'x':
+        Current_array = x
+    else:
+        Current_array = o
+
+    for _ in wins:
+        t1 = lambda _: _[1] in Current_array
+        t2 = lambda _: _[2] in Current_array
+        t3 = lambda _: _[3] in Current_array
+        if t1 and t2 and t3 == True:
+            Win_condition = True
+            break
     return Win_condition
 
 if __name__ =='__main__':
