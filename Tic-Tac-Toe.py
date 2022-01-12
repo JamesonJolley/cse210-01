@@ -4,8 +4,13 @@ def main():
 
     Win_condition = False
     Current_turn = False
+    turn_count = 0
 
     while Win_condition == False:
+        if turn_count > 8:
+            print_bord(x,o)
+            print('its a draw')
+            break
         ##Print the board 
         print_bord(x,o)
 
@@ -17,10 +22,12 @@ def main():
         
         ##Calculate the wind condition
         Win_condition =win(x,o,Current_turn)
+        turn_count +=1
         
-
+       
     else:
         ##Victory message
+        print_bord(x,o)
         print(f'{Current_turn} is the winner!!!')
         pass
 
