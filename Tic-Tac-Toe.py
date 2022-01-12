@@ -4,7 +4,7 @@ def main():
 
     Win_condition = win(x,o)
     Current_turn = False
-    
+
     while Win_condition == False:
         ##Print the board 
         print_bord(x,o)
@@ -13,10 +13,11 @@ def main():
         
         Current_turn = turn(Current_turn)
         ##Ask if that player for an input 
-        input(f'{Current_turn}\'s turn to choose a square (1-9):')
+        Choose_tile(Current_turn,x,o)
+        
         ##Calculate the wind condition
         Win_condition = win(x,o)
-        ##print_bord(x,o)
+        
 
     else:
         ##Victory message
@@ -29,6 +30,17 @@ def turn(Current_turn):
         turn = 'x'
     return turn
     
+def Choose_tile(Current_turn,x,o):
+    tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
+    while tile.isnumeric() == False:
+        print(f'{tile} is not a valid answer try again')
+        tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
+
+    if Current_turn == 'x':
+        x.append(int(tile))
+    else:
+        o.append(int(tile))
+
 
 
 def print_bord(x,o):
