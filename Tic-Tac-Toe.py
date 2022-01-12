@@ -2,7 +2,7 @@ def main():
     x=[]
     o=[]
 
-    Win_condition = win(x,o)
+    Win_condition = False
     Current_turn = False
 
     while Win_condition == False:
@@ -12,11 +12,13 @@ def main():
         ##Determine whose turn it is 
         
         Current_turn = turn(Current_turn)
+        Current_array = Determine_array(x,o,Current_turn)
+
         ##Ask if that player for an input 
-        Choose_tile(Current_turn,x,o)
+        Choose_tile(Current_turn,Current_array)
         
         ##Calculate the wind condition
-        Win_condition =win(x,o,Current_turn)
+        Win_condition =win(Current_array)
         
 
     else:
@@ -30,18 +32,22 @@ def turn(Current_turn):
     else:
         turn = 'x'
     return turn
+
+def Determine_array(x,o,Current_turn):
+    if Current_turn == 'x':
+        Current_array = x
+    else:
+        Current_array = o
+    return Current_array
+
     
-def Choose_tile(Current_turn,x,o):
+def Choose_tile(Current_turn,Current_array):
     tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
     while tile.isnumeric() == False:
         print(f'{tile} is not a valid answer try again')
         tile = input(f'{Current_turn}\'s turn to choose a square (1-9):')
 
-    if Current_turn == 'x':
-        x.append(int(tile))
-    else:
-        o.append(int(tile))
-
+        Current_array.append(int(tile))
 
 
 def print_bord(x,o):
@@ -71,9 +77,9 @@ def print_bord(x,o):
     {tiles[7]}|{tiles[8]}|{tiles[9]}
     
     ''')
-    pass 
 
-def win(x,o,Current_turn):
+
+def win(Current_array):
     Win_condition = False
     wins={
         'r1':[1,2,3],
@@ -88,19 +94,25 @@ def win(x,o,Current_turn):
         'x2':[3,5,7]
     }
 
-    if Current_turn == 'x':
-        Current_array = x
-    else:
-        Current_array = o
+    def test(Current_array,val):
+        if val in Current_array:
+            out = True
+        else:
+            out = False
+        return out   
 
     for _ in wins:
-        t1 = lambda _: _[1] in Current_array
-        t2 = lambda _: _[2] in Current_array
-        t3 = lambda _: _[3] in Current_array
+        t1 = test(Current_array,wins[_][0])
+        t2 = test(Current_array,wins[_][1])
+        t3 = test(Current_array,wins[_][2])
+
         if t1 and t2 and t3 == True:
             Win_condition = True
             break
     return Win_condition
+
+
+
 
 if __name__ =='__main__':
     main()
